@@ -1,0 +1,59 @@
+﻿.practices-imgDiv {
+    display: inline-block;
+    min-height: 120px;
+    min-width: 300px;
+    max-height: 260px;
+    width: 48%;
+    height: auto;
+    margin-left: 1%;
+    margin-right: auto;
+    margin-bottom: 10%;
+}
+
+    .practices-imgDiv:hover {
+        width: 49%;
+        margin-left: 0.5%;
+    }
+
+.practices-lastOdd-imgDiv {
+    display: inline-block;
+    min-height: 120px;
+    min-width: 300px;
+    max-height: 260px;
+    width: 48%;
+    height: auto;
+    margin-left: 25%;
+    margin-right: auto;
+    margin-bottom: 10%;
+}
+
+    .practices-lastOdd-imgDiv:hover {
+        width: 49%;
+        margin-left: 24.5%;
+    }
+
+.practices-img-header {
+    display: block;
+    width:100%;
+    text-align:center;
+    color: black;
+}
+
+@media screen and (max-width: 768px) {
+    .practices-lastOdd-imgDiv {
+        display: inline-block;
+        min-height: 120px;
+        min-width: 300px;
+        max-height: 260px;
+        width: 48%;
+        height: auto;
+        margin-left: 1%;
+        margin-right: auto;
+        margin-bottom: 5%;
+    }
+
+        .practices-lastOdd-imgDiv:hover {
+            width: 49%;
+            margin-left: 0.5%;
+        }
+}

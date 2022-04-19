@@ -1,0 +1,43 @@
+﻿
+@{
+    if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+    }
+
+}
+
+
+<div class="container">
+    <div class="headitem" id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+    <h4 id="headme" class="my-4 headlineColor" style="text-align:center;"></h4>
+
+    <label id="contentme" style="white-space: pre-wrap;">
+
+
+
+    </label>
+</div>
+
+<script>
+    var announcement = @Html.Raw(Json.Encode(Model));
+    {
+        var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+
+            putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, getControllerName()), link: "/" + getControllerName() + "/" }, { page: announcement.Title, link: "#" }]);
+
+            break;
+        }
+        }
+        
+    }
+    document.getElementById("headme").innerHTML = announcement.Title;
+    document.getElementById("contentme").innerHTML = announcement.Content;
+</script>

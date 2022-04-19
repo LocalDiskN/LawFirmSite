@@ -1,0 +1,97 @@
+﻿.explanDiv{
+    position:relative;
+    width:100%;
+    margin-top:5%;
+    margin-bottom:5%;
+}
+
+.explanLabelL {
+    display: block;
+    position: absolute;
+    white-space: pre-wrap;
+    width: 66%;
+    background-color: rgba(211, 211, 211,0.4);
+    color: black;
+    font-size: 200%;
+    padding: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+    line-height: 200%;
+}
+
+.explanLabelR {
+    display: block;
+    position: absolute;
+    white-space: pre-wrap;
+    width: 66%;
+    background-color: rgba(211, 211, 211,0.4);
+    color: black;
+    font-size: 200%;
+    padding: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+    line-height: 200%;
+}
+
+.eximgDiv {
+    display: block;
+    position: absolute;
+    width: 31%;
+}
+
+.leftHeader {
+    width: 100%;
+    margin: auto;
+    text-align: left;
+    color: rgb(221, 195, 162);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.rightHeader {
+    width: 100%;
+    margin: auto;
+    text-align: right;
+    color: rgb(221, 195, 162);
+    font-family: 'Times New Roman', Times, serif;
+}
+.centerHeader {
+    width: 100%;
+    margin:auto;
+    text-align: center;
+    color: rgb(221, 195, 162);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+@media screen and (max-width: 992px) {
+    .explanLabelL {
+        display: block;
+        position: absolute;
+        white-space: pre-wrap;
+        width: 100%;
+        background-color: rgba(211, 211, 211,0.4);
+        color: black;
+        font-size: 150%;
+        margin-left: -33%;
+        padding: 2%;
+        padding-left: 3%;
+        padding-right: 3%;
+        line-height: 150%;
+    }
+    .explanLabelR {
+        display: block;
+        position: absolute;
+        white-space: pre-wrap;
+        width: 100%;
+        background-color: rgba(211, 211, 211,0.4);
+        color: black;
+        font-size: 150%;
+        padding: 2%;
+        padding-left: 3%;
+        padding-right: 3%;
+        line-height: 150%;
+    }
+
+    .eximgDiv {
+        display: none;
+    }
+}

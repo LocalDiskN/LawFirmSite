@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/StyleNScript/Home/IndexCss.css" rel="stylesheet" />
+
+<div id="practiceDiv" class="container">
+    <h2 id="PageHeadline" class="headitem text-center headlineColor"></h2>
+    <div id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+
+
+</div>
+<script src="~/StyleNScript/Home/HomeScript.js"></script>
+<script>
+    {
+        var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+
+            putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, getControllerName()), link: "#" }]);
+
+            break;
+        }
+        }
+        document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+    }
+
+    var practiceArray = @Html.Raw(Json.Encode(Model));
+
+    putPractices(document.getElementById("practiceDiv"), practiceArray);
+
+    for (var i = 0; i < practiceArray.length; i++) {
+        animate(document.getElementById("imgd-" + i), (i + 4004), "opacity", "1", 650 + (i * 500), true);
+    }
+</script>

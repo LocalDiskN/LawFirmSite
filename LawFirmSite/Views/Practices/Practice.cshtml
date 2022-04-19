@@ -1,0 +1,51 @@
+﻿@model LawFirmSite.Models.PracticePageModel
+@{
+    if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+    }
+}
+<link href="~/StyleNScript/Generals/ExplanationSheet1.css" rel="stylesheet" />
+<div>
+    <h1 id="practiceTitle" class="headitem" style="text-align:center; color:rgb(221, 195, 162); font-family:'Times New Roman', Times, serif"></h1>
+    <div class="mb-3" id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+</div>
+<div id="explan" class="bigContainer" style="margin-bottom:80px;">
+
+</div>
+
+<script src="~/StyleNScript/Generals/ExplanationScript.js"></script>
+<script>
+    var practice = @Html.Raw(Json.Encode(Model));
+    {
+        var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+        var controller = getControllerName();
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, controller), link: "/" + controller + "/" }, { page: practice.Title, link: "#" }]);
+            break;
+        }
+    }
+    //document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+    }
+    
+    document.getElementById("practiceTitle").innerHTML = practice.Title;
+    practice.Title = "";
+    var expdivs = putExplan(document.getElementById("explan"), [practice]);
+
+    
+    window.addEventListener("resize", function () {
+        for (var i = 0; i < expdivs.length; i++) {
+            setHeighttoElems(expdivs[i], [document.getElementById(expdivs[i].id + "-label"), document.getElementById(expdivs[i].id + "-img")]);
+        }
+    });
+    window.addEventListener("load", function () {
+        for (var i = 0; i < expdivs.length; i++) {
+            setHeighttoElems(expdivs[i], [document.getElementById(expdivs[i].id + "-label"), document.getElementById(expdivs[i].id + "-img")]);
+        }
+    });
+</script>

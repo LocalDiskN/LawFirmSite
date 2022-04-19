@@ -1,0 +1,14 @@
+﻿@model IEnumerable<LawFirmSite.Models.AboutModel>
+@{
+    if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+        @Html.Partial("~/Views/Admin/Shared/_AdminAboutPartial.cshtml", Model)
+    }
+    else
+    {
+        @Html.Partial("_AboutPartial", Model)
+    }
+
+}
+

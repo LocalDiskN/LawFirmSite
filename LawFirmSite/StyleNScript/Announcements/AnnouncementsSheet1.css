@@ -1,0 +1,39 @@
+﻿.AnsDiv {
+    display: inline-block;
+    position: relative;
+    width: 240px;
+    height: 320px;
+    background-color: rgb(233, 234, 234);
+    -moz-border-top-left-radius: 10%;
+    -webkit-border-top-left-radius: 10%;
+    border-top-left-radius: 10%;
+    border-left: 3px solid rgb(176, 75, 75);
+    border-top: 1px solid rgb(176, 75, 75);
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+.AnsDiv:hover{
+    cursor:pointer;
+}
+
+.AnsHeader {
+    position: absolute;
+    display: block;
+    color: #9D7558;
+    top: 24px;
+    width:100%;
+}
+
+.AnsLink{
+    color:black;
+}
+.AnsLink:hover {
+    color: black;
+}
+
+h6 {
+    position: absolute;
+    font-weight: 300;
+    width: 100%;
+}

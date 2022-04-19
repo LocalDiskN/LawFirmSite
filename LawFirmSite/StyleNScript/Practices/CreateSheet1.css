@@ -1,0 +1,29 @@
+﻿.AnsDiv {
+    display: inline-block;
+    position: relative;
+    width: 300px;
+    height: 130px;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+.AnsDiv2 {
+    display: inline-block;
+    position: relative;
+    width: 171px;
+    height: 300px;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+    .AnsDiv:hover {
+        cursor: pointer;
+    }
+
+.AnsDiv2:hover {
+    cursor: pointer;
+}
+.AvailableImge {
+    display: block;
+    width: 100%;
+    height: 100%;
+}

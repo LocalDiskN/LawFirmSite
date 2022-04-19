@@ -1,0 +1,75 @@
+﻿.explanDiv {
+    display: inline-block;
+    width: 60%;
+    background-color: rgba(211, 211, 211,0.4);
+    color: black;
+    font-size: 200%;
+    margin-left: 2%;
+    padding: 2%;
+}
+
+.eximgDiv {
+    display: inline-block;
+    width: 30%;
+    margin-top: -18%;
+    margin-left: 2%;
+}
+
+.eximgDiv2 {
+    display: inline-block;
+    width: 40%;
+    margin-top: -38%;
+}
+.eximgDiv3 {
+    display: none;
+}
+
+@media screen and (max-width: 1199px) {
+    .explanDiv {
+        display: inline-block;
+        width: 56%;
+        background-color: rgba(211, 211, 211,0.4);
+        color: black;
+        font-size: 150%;
+    }
+    .eximgDiv {
+        display: inline-block;
+        width: 40%;
+        margin-top: -38%;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .explanDiv {
+        display: inline-block;
+        width: 56%;
+        background-color: rgba(211, 211, 211,0.4);
+        color: black;
+        font-size: 150%;
+    }
+
+    .eximgDiv {
+        display: inline-block;
+        width: 40%;
+        margin-top: -68%;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .explanDiv {
+        display: block;
+        width: 100%;
+        background-color: rgba(211, 211, 211,0.4);
+        color: black;
+        font-size: 150%;
+    }
+
+    .eximgDiv {
+        display: none;
+    }
+    .eximgDiv2 {
+        display: none;
+    }
+}
+

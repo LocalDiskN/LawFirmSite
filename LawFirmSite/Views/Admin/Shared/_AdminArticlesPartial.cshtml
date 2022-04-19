@@ -1,0 +1,93 @@
+﻿@model IEnumerable<LawFirmSite.Models.ArticlesModel>
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/StyleNScript/Articles/ArticlesSheet1.css" rel="stylesheet" />
+<div class="container">
+    <h2 id="PageHeadline" class="headitem text-center headlineColor"></h2>
+    <div id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+    <div id="mainArsDiv">
+
+    </div>
+</div>
+<a id="CreateArticle" class="buttonLink bluebuttonLinkhollow" style="font-size:24px; margin-left:45%; text-align:center;" href="/Articles/Create/"></a>
+
+<script src="~/StyleNScript/Articles/ArticleScript.js"></script>
+<script src="~/StyleNScript/Generals/PutLinksScript.js"></script>
+<script src="~/StyleNScript/Generals/AdminScript.js"></script>
+<script>
+    var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            if (window.location.href.indexOf("Admin") === -1) {
+                putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, "Articles"), link: "#" }]);
+            }
+            break;
+        }
+    }
+    document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+    document.getElementById("CreateArticle").innerHTML = getValueFromDic(crumbstr.Content, "Create");
+    var articles = @Html.Raw(Json.Encode(Model));
+
+    var buttonlinks = [
+        { inner: '<i class="fas fa-times"></i>', class: "buttonLink redbuttonLinkhollow", address: "#", hmessage: { message: getValueFromDic(crumbstr.Content, "Delete"), class: "buttonLink redbuttonLinkhollow" }, onmousedown: "" },
+        { inner: '<i class="far fa-edit"></i>', class: "buttonLink bluebuttonLinkhollow", address: "#", hmessage: { message: getValueFromDic(crumbstr.Content, "Edit"), class: "buttonLink bluebuttonLinkhollow" }, onmousedown: "" }
+    ]
+
+    var mydiv = document.getElementById("mainArsDiv");
+
+    for (var i = 0; i < articles.length; i++) {
+        var stockcaption = document.createElement("h5");
+        stockcaption.innerHTML = articles[i].Title;
+        stockcaption.style.color = "rgb(157, 117, 88)";
+
+        var profileLink = document.createElement("a");
+        var hrme = document.createAttribute("href");
+        hrme.value = "/Team/Profileme/?id=" + articles[i].Authid;
+        profileLink.setAttributeNode(hrme);
+        profileLink.innerHTML = "<b>" + articles[i].AuthFullname + "</b>";
+        profileLink.className = "profileLink";
+        profileLink.setAttribute("onmouseover", "setN(this," + (i + 10000) + ")");
+        profileLink.setAttribute("onmouseout", "unsetN(this," + (i + 10000) + ")");
+
+        var ArSum = document.createElement("p");
+        ArSum.innerHTML = articles[i].Summary;
+
+        var strDiv = document.createElement("div");
+        strDiv.className = "strDiv";
+        strDiv.appendChild(stockcaption);
+        strDiv.appendChild(profileLink);
+        strDiv.appendChild(ArSum);
+
+
+        var stockimg = document.createElement("img");
+        stockimg.className = "arImg";
+        var srcme = document.createAttribute("src");
+        srcme.value = articles[i].ImgUrl;
+        stockimg.setAttributeNode(srcme);
+
+        var arDiv = document.createElement("div");
+        arDiv.className = "arDiv";
+        arDiv.setAttribute("onmouseover", "setA(this," + (i + 10000) + ")");
+        arDiv.setAttribute("onmouseout", "unsetA(this," + (i + 10000) + ")");
+        arDiv.appendChild(strDiv);
+        arDiv.appendChild(stockimg);
+
+        var arLink = document.createElement("a");
+        arLink.id = "articleme-" + i;
+        var hrmee = document.createAttribute("href");
+        hrmee.value = "/Articles/Article/?id=" + articles[i].idme;
+        arLink.setAttributeNode(hrmee);
+        arLink.appendChild(arDiv);
+
+        mydiv.appendChild(arLink);
+        buttonlinks[0].onmousedown = "asyncDelete('/Articles/Delete/',  { NameOrid: '" + articles[i].idme + "', LangAbr: '" + crumbstr.Abbreviation + "'} , 'articleme-" + i + "')";
+        buttonlinks[1].address = "/Articles/Edit/?id=" + articles[i].idme;
+        putlinkss(arDiv, 2000 + (i * 4), buttonlinks, "right", "0px", "0px");
+    }
+</script>

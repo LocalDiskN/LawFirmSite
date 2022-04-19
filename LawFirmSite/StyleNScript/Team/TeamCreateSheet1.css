@@ -1,0 +1,27 @@
+﻿.infolabel {
+    display: inline-block;
+    width: 22%;
+    font-size:20px;
+}
+
+.infoTADiv {
+    display: inline-block;
+    width: 78%;
+}
+
+.generalIdinfoDiv {
+    position: relative;
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: .25rem;
+    padding: 8px;
+    padding-top: 16px;
+}
+
+.generalIdinfoHead {
+    font-size: 20px;
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    background-color: rgb(248, 249, 250);
+}

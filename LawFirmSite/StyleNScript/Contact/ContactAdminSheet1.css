@@ -1,0 +1,42 @@
+﻿.parinfdiv {
+    position: relative;
+    padding-left: 4%;
+    margin-bottom: 6%;
+    padding-bottom: 15px;
+    border-bottom: 2px solid;
+    color: rgba(90, 106, 134, 0.3);
+}
+
+.childinfdiv {
+    width: 100%;
+    position: relative;
+}
+
+.htmledit{
+    display: inline-block;
+    width: 50%;
+}
+
+.conp {
+    display: inline-block;
+    width: 50%;
+    color: rgb(50, 66, 94);
+    font: 26px Times New Roman;
+}
+
+.conh {
+    display: inline-block;
+    font-weight: 600;
+    width: 50%;
+    font: 20px Times New Roman;
+    color: rgba(50, 66, 94, 0.8);
+}
+.spliceDiv {
+    width: 100%;
+    height: 15px;
+    color: rgba(90, 106, 134, 0.3);
+    border-bottom: 2px solid;
+    /*border-left: 2px solid;
+    border-right: 2px solid;*/
+    margin-bottom: 15%;
+}

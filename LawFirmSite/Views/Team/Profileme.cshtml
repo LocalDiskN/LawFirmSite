@@ -1,0 +1,51 @@
+﻿@model LawFirmSite.Models.EmployeeModel
+@{
+    if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+    }
+}
+<link href="~/StyleNScript/Team/ProfileSheet1.css" rel="stylesheet" />
+<div id="profile" class="container headitem">
+    <div id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+    <img id="proimg" src="" class="imgCss" alt="Alternate Text" />
+    <div id="infoDiv" class="align-top">
+        <div id="NameDiv" style="white-space: pre-wrap; font-weight:600;">
+
+        </div>
+        <div id="explanlabel" style="white-space: pre-wrap;">
+
+        </div>
+    </div>
+    <div id="explanlabel2" style="white-space: pre-wrap;">
+
+    </div>
+
+</div>
+<script>
+    {
+        var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+        var controller = getControllerName();
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, controller), link: "/" + controller + "/" }, { page: getValueFromDic(crumbstr.Content, "Profile"), link: "#" }]);
+            break;
+        }
+    }
+    //document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+    }
+    
+    var employee = @Html.Raw(Json.Encode(Model));
+
+    document.getElementById("NameDiv").innerHTML = employee.Title + " " + employee.FullName;
+
+    document.getElementById("explanlabel").innerHTML = employee.Explanation;
+    document.getElementById("explanlabel2").innerHTML = employee.Explanation2;
+
+    document.getElementById("proimg").src = employee.ImgUrl;
+
+</script>

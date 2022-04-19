@@ -1,0 +1,138 @@
+﻿
+@{
+    if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+    }
+}
+<link href="~/StyleNScript/Contact/ContactSheet1.css" rel="stylesheet" />
+<div class="bigContainer">
+    <h2 id="PageHeadline" class="headitem text-center headlineColor"></h2>
+    <div id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+    <div id="maincontcon" style="position:relative;">
+        <div id="leftcontdiv123" class="leftcontdiv">
+            <div id="PutinfoDiv" class="infoDiv">
+
+            </div>
+        </div>
+
+        <div class="rightcontdiv">
+
+            <div id="contactMeDiv123" class="contactMeDiv">
+
+                <h3 id="ContactUs" class="namemebyid" style="color:rgb(176, 75, 75); align-self:center; text-align:center; margin-bottom:5%;"></h3>
+
+                @using (Html.BeginForm())
+                {
+                    <div class="myFormGroup">
+                        <label for="FullN" class="namemebyinner">FullName</label>
+                        <input type="text" class="myFormControl" id="FullName" name="FullName">
+                    </div>
+
+                    <div class="myFormGroup">
+                        <label for="Subj" class="namemebyinner">Subject</label>
+                        <input type="text" class="myFormControl" id="Subject" name="Subject">
+                    </div>
+
+                    <div class="myFormGroup">
+                        <label for="Mess" class="namemebyinner">Message</label>
+                        <textarea style="height:300px; max-height:300px; min-height:300px;" type="text" class="myFormControl" id="Message" name="Message"></textarea>
+                    </div>
+
+                    <div class="myFormGroup">
+                        <label id="YourEmail" for="Email" class="namemebyinner">YourEmail</label>
+                        <input type="email" class="myFormControl" id="Email" name="Email" aria-describedby="emailHelp">
+                    </div>
+
+                    <input id="lang" name="lang" type="hidden"/>
+                    <button id="Send" type="submit" class="btn namemebyinner" style="background-color:rgb(176, 75, 75); color:white;">Send</button>
+                }
+
+            </div>
+
+        </div>
+    </div>
+    <div id="map">
+
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/StyleNScript/Generals/ExplanationScript.js"></script>
+<script>
+    var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            if (window.location.href.indexOf("Admin") === -1) {
+                putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, getControllerName()), link: "#" }]);
+            }
+            break;
+        }
+    }
+    document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+
+    document.getElementById("lang").value = crumbstr.Abbreviation;
+
+    var infodiv = document.getElementById("PutinfoDiv");
+    var contactinfos = @Html.Raw(Json.Encode(ViewBag.LayoutModel.contacts));
+
+    for (var i = 1; i < contactinfos.length; i++) {
+        var parinfdiv = document.createElement("div");
+        var infohead = document.createElement("h5");
+        infohead.className = "conh";
+        infohead.className = "mb-4";
+        infohead.innerHTML = contactinfos[i].Title;
+        parinfdiv.appendChild(infohead);
+
+        for (var a = 0; a < contactinfos[i].Contents.length; a++) {
+            var cont = document.createElement("p");
+            cont.className = "conp";
+            cont.innerHTML = contactinfos[i].Contents[a];
+            parinfdiv.appendChild(cont);
+        }
+        infodiv.appendChild(parinfdiv);
+
+        var spldiv = document.createElement("div");
+        spldiv.className = "spliceDiv";
+        infodiv.appendChild(spldiv);
+    }
+    nameWinner(crumbstr.Content);
+    nameWid(crumbstr.Content);
+
+    var mainme = document.getElementById("leftcontdiv123");
+    window.addEventListener("load", function () {
+
+        if (window.getComputedStyle(mainme).getPropertyValue("position") === "absolute") {
+            setHeighttoElems(document.getElementById("maincontcon"), [document.getElementById("PutinfoDiv"), document.getElementById("contactMeDiv123")]);
+        }
+        
+       
+    });
+
+    window.addEventListener("resize", function () {
+        if (window.getComputedStyle(mainme).getPropertyValue("position") === "absolute") {
+            setHeighttoElems(document.getElementById("maincontcon"), [document.getElementById("PutinfoDiv"), document.getElementById("contactMeDiv123")]);
+        }
+        else {
+            document.getElementById("maincontcon").style.setProperty("height", "initial");
+        }
+    });
+    function initMap() {
+        // The location of Uluru
+        var uluru = { lat: parseFloat(contactinfos[0].Contents[0]), lng: parseFloat(contactinfos[0].Contents[1]) };
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), { zoom: 17.5, center: uluru });
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({ position: uluru, map: map });
+    }
+</script>
+
+@*<script src="http://maps.google.com/maps/api/js?v=3.23&amp;key=AIzaSyD6LP357YE5W9faJAnFbFLMbMBFwPV5TrQ&amp;libraries=places" type="text/javascript"></script>*@

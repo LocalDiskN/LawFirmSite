@@ -1,0 +1,296 @@
+﻿@model LawFirmSite.Models.ArticlesCreateModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+}
+<link href="~/StyleNScript/Articles/CreateSheet1.css" rel="stylesheet" />
+<link href="~/StyleNScript/Generals/Dropdownmes.css" rel="stylesheet" />
+<link href="~/StyleNScript/Articles/ArticlesSheet1.css" rel="stylesheet" />
+<link href="~/StyleNScript/Generals/Dropdownmes.css" rel="stylesheet" />
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/piexif.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/sortable.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/purify.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/locales/LANG.js"></script>
+<div class="bigContainer">
+    <div class="headitem" id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+    <input type="file" id="input-file-1" name="imgfile" accept="image/*" />
+
+
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button id="Images" class="linkCss btn btn-link collapsed namemebyinner" type="button" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">AvailableImages</button>
+                </h5>
+            </div>
+
+            <div id="collapse-1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="availableImgDiv" class="card-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 40px;">
+
+        <div id="mainArsDiv">
+
+        </div>
+    </div>
+
+    <div class="dropdownme-main container">
+        <label>Authors</label>
+        <img src="~/Images/DownIcon2.png" style="width:10px;" />
+        <input id="checkboxme" type="checkbox" class="dropdowntoggle" style="width:100px; height:24px; margin-top:-30px; margin-left:-10px;" />
+        <div id="authshere" class="dropdownme-child">
+
+        </div>
+
+    </div>
+    <div id="resultHead" class="container">
+        <label id="Title" class="namemebyinner">Title</label>
+
+    </div>
+
+    <div id="resultDiv" class="container">
+        <h4 id="imlabdiv0-head" class="my-4 headlineColor" style="text-align:center;"></h4>
+
+        <label id="imlabdiv0-label" style="white-space: pre-wrap;">
+
+
+
+        </label>
+        <a id="authme" class="linkCss" href="#"></a>
+    </div>
+    <div id="resultDiv2" class="container">
+        <label id="Content" class="namemebyinner">Content</label>
+
+    </div>
+
+    <a id="Create" class="namemebyinner buttonLink bluebuttonLinkhollow hoverme" style="font-size:24px; margin-left:45%; text-align:center;">Create</a>
+    <label id="alignmentme" style="opacity:0;"></label>
+</div>
+<script src="~/StyleNScript/Articles/ArticleScript.js"></script>
+<script src="~/StyleNScript/Generals/PutLinksScript.js"></script>
+<script src="~/StyleNScript/Generals/HTMLEditorScript.js"></script>
+<script src="~/StyleNScript/Generals/AdminScript.js"></script>
+<script>
+    var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            if (window.location.href.indexOf("Admin") === -1) {
+                putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, "Admin"), link: "/Admin/" }, { page: getValueFromDic(crumbstr.Content, "Create"), link: "#"}]);
+            }
+            break;
+        }
+    }
+    document.getElementById("alignmentme").innerHTML = "left";
+
+    document.getElementById("Create").onmousedown = function () {
+        var getmeauth = document.getElementById("authme");
+        var modelthis = { lang: crumbstr.Abbreviation, ImgUrl: getRelativeImgUrl(document.getElementById("imlabdiv0-img").src), Title: document.getElementById("imlabdiv0-head").innerHTML, Content: document.getElementById("imlabdiv0-label").innerHTML, Authid: parseInt(getmeauth.href.substr(getmeauth.href.indexOf("=") + 1)) };
+
+        post("/Articles/Create/", modelthis, "post");
+        }
+
+    var deletelinks = [
+        { inner: '<i class="fas fa-trash-alt"></i>', class: "buttonLink redbuttonLinkhollow", address: "", hmessage: { message: getValueFromDic(crumbstr.Content, "Delete"), class: "buttonLink redbuttonLinkhollow" }, onmousedown: "" }
+    ]
+    function gemy(elemid) {
+        document.getElementById("imlabdiv0-img").src = elemid.childNodes[0].src;
+    };
+    var imgdividitr = 0;
+    $("#input-file-1").fileinput({
+        uploadUrl: "/Articles/UploadImage/",
+        allowedFileExtensions: ["jpg", "png"],
+        maxImageWidth: 300,
+        maxImageHeight: 300,
+        maxFileCount: 1,
+        uploadAsync: true,
+        resizeImage: true,
+        msgCancelled: getValueFromDic(crumbstr.Content, "UploadCancelled"),
+        msgFileNotFound: "{name}: " + getValueFromDic(crumbstr.Content, "FileNotFound"),
+        msgFileNotReadable: "{name}: " + getValueFromDic(crumbstr.Content, "FileNotReadable"),
+        msgFilePreviewAborted: getValueFromDic(crumbstr.Content, "PreviewAbortedFor") + " {name}",
+        msgFilePreviewError: getValueFromDic(crumbstr.Content, "ErrorReadingFile") + " {name}",
+        msgFileSecured: getValueFromDic(crumbstr.Content, "ErrorReadingSecureFile") + " {name}",
+        msgFoldersNotAllowed: getValueFromDic(crumbstr.Content, "DragNDropOnly") + ". {n} " + getValueFromDic(crumbstr.Content, "Folder") + getValueFromDic(crumbstr.Content, "Skipped"),
+        msgInvalidFileExtension: getValueFromDic(crumbstr.Content, "InvalidFileExtension") + ". " + getValueFromDic(crumbstr.Content, "Only") + " {extensions} " + getValueFromDic(crumbstr.Content, "Supported"),
+        msgInvalidFileType: getValueFromDic(crumbstr.Content, "InvalidFileType") + ". " + getValueFromDic(crumbstr.Content, "Only") + " {types} " + getValueFromDic(crumbstr.Content, "Supported"),
+        msgFilesTooLess: getValueFromDic(crumbstr.Content, "TooLessFiles") + ".",
+        msgFilesTooMany: getValueFromDic(crumbstr.Content, "TooManyFiles") + ".",
+        msgImageHeightLarge: getValueFromDic(crumbstr.Content, "HieghtTooLong") + ".",
+        msgImageHeightSmall: getValueFromDic(crumbstr.Content, "HieghtTooShort") + ".",
+        msgImageWidthLarge: getValueFromDic(crumbstr.Content, "WidthTooLong") + ".",
+        msgImageWidthSmall: getValueFromDic(crumbstr.Content, "WidthTooShort") + ".",
+        msgLoading: getValueFromDic(crumbstr.Content, "LoadingFile") + " {name}",
+        msgNo: getValueFromDic(crumbstr.Content, "No"),
+        msgProgress: getValueFromDic(crumbstr.Content, "LoadingFile") + " {name}." + "{percent}%" + getValueFromDic(crumbstr.Content, "Completed"),
+        msgSelected: getValueFromDic(crumbstr.Content, "FilesSelected") + ": {n}",
+        msgSizeTooLarge: getValueFromDic(crumbstr.Content, "FileSizeTooLarge") + ". " + getValueFromDic(crumbstr.Content, "AllowedUploadSize") + ": {maxSize} KB",
+        msgUploadAborted: getValueFromDic(crumbstr.Content, "UploadAborted"),
+        msgValidationError: getValueFromDic(crumbstr.Content, "FileUploadError"),
+        msgZoomModalHeading: getValueFromDic(crumbstr.Content, "DetailedPreview"),
+        msgZoomTitle: getValueFromDic(crumbstr.Content, "ViewDetails"),
+        dropZoneTitle: getValueFromDic(crumbstr.Content, "DragNDrop"),
+        removeTitle: getValueFromDic(crumbstr.Content, "Clear"),
+        uploadTitle: getValueFromDic(crumbstr.Content, "Upload"),
+        msgPlaceholder: getValueFromDic(crumbstr.Content, "SelectFile") + "...",
+        uploadLabel: getValueFromDic(crumbstr.Content, "Upload"),
+        browseLabel: getValueFromDic(crumbstr.Content, "Browse") + "...",
+        removeLabel: getValueFromDic(crumbstr.Content, "Remove")
+    }).on('fileuploaded', function (event, data, msg) {
+        imgdividitr++;
+        var imgdiv = document.createElement("div");
+        imgdiv.className = "AnsDiv";
+        imgdiv.id = "stckimgdiv-" + imgdividitr;
+
+        var stockimg = document.createElement("img");
+        stockimg.className = "AvailableImge";
+        var srcme = document.createAttribute("src");
+        srcme.value = "/Images/Articles/" + data.response.filename;
+        stockimg.setAttributeNode(srcme);
+        stockimg.id = "stockmebaby-" + imgdividitr;
+        imgdiv.appendChild(stockimg);
+
+        imgdiv.setAttribute("onmousedown", "gemy(this)");
+
+        avimgdiv.appendChild(imgdiv);
+
+        deletelinks[0].onmousedown = "asyncDelete('/Articles/DeleteImage/',  { NameOrid: '" + data.response.filename + "', LangAbr: '" + crumbstr.Abbreviation + "'} , 'stckimgdiv-" + imgdividitr + "')";
+        putlinkss(imgdiv, 10 + imgdividitr, deletelinks, "right", "0px", "0px");
+        putMessage({ success: getValueFromDic(crumbstr.Content, "FileUploaded") }, 2000);
+        });
+
+    nameWinner(crumbstr.Content);
+    namebuttonsWValues(crumbstr.Content);
+    
+    var avimgdiv = document.getElementById("availableImgDiv");
+    var imgnames = @Html.Raw(Json.Encode(Model.AvailableImageUrls));
+
+    for (imgdividitr = 0; imgdividitr < imgnames.length; imgdividitr++) {
+        var imgdiv = document.createElement("div");
+        imgdiv.className = "AnsDiv";
+        imgdiv.id = "stckimgdiv-" + imgdividitr;
+
+        var stockimg = document.createElement("img");
+        stockimg.className = "AvailableImge";
+        var srcme = document.createAttribute("src");
+        srcme.value = "/Images/Articles/" + imgnames[imgdividitr];
+        stockimg.setAttributeNode(srcme);
+        stockimg.id = "stockmebaby-" + imgdividitr;
+        imgdiv.appendChild(stockimg);
+
+        imgdiv.setAttribute("onmousedown", "gemy(this)");
+
+        avimgdiv.appendChild(imgdiv);
+
+        deletelinks[0].onmousedown = "asyncDelete('/Articles/DeleteImage/',  { NameOrid: '" + imgnames[imgdividitr] + "', LangAbr: '" + crumbstr.Abbreviation + "'} , 'stckimgdiv-" + imgdividitr + "')";
+        putlinkss(imgdiv, 10 + imgdividitr, deletelinks, "right", "0px", "0px");
+    }
+    
+    var autnamenids = @Html.Raw(Json.Encode(Model.AuthnamesNids));
+
+    var stockcaption = document.createElement("h5");
+    var profileLink = document.createElement("a");
+    var ArSum = document.createElement("p");
+    {
+
+        var uthdiv = document.getElementById("authshere");
+        for (var i = 0; i < autnamenids.length; i++) {
+            var auth = document.createElement("label");
+            auth.className = "LinkCss hoverme";
+            auth.id = getValueFromDic(autnamenids[i], "FullName") + "-" + getValueFromDic(autnamenids[i], "AuthID");
+            auth.innerHTML = getValueFromDic(autnamenids[i], "FullName");
+            auth.onmousedown = function () {
+                profileLink.innerHTML = document.getElementById("authme").innerHTML = this.id.substr(0, this.id.indexOf("-"));
+                profileLink.href = document.getElementById("authme").href = "/Team/Profileme/?id=" + this.id.substr(this.id.indexOf("-") + 1);
+                document.getElementById("checkboxme").checked = false;
+            }
+            uthdiv.appendChild(auth);
+        }
+
+        stockcaption.id = "showhead";
+        stockcaption.style.color = "rgb(157, 117, 88)";
+
+        var strDiv = document.createElement("div");
+        strDiv.appendChild(stockcaption);
+        if (autnamenids.length > 0) {
+            profileLink.innerHTML = getValueFromDic(autnamenids[0], "FullName");
+            document.getElementById("authme").innerHTML = getValueFromDic(autnamenids[0], "FullName");
+            document.getElementById("authme").href = "/Team/Profileme/?id=" + getValueFromDic(autnamenids[0], "AuthID");
+            var hrme = document.createAttribute("href");
+            hrme.value = "/Team/Profileme/?id=" + getValueFromDic(autnamenids[0], "AuthID");
+            profileLink.setAttributeNode(hrme);
+            profileLink.className = "profileLink";
+            profileLink.setAttribute("onmouseover", "setN(this," + 10000 + ")");
+            profileLink.setAttribute("onmouseout", "unsetN(this," + 10000 + ")");
+            strDiv.appendChild(profileLink);
+        }
+        
+
+        ArSum.id = "showsumm";
+
+        strDiv.className = "strDiv";
+        strDiv.appendChild(ArSum);
+
+
+        var stockimg = document.createElement("img");
+        stockimg.id = "imlabdiv0-img";
+        stockimg.className = "arImg";
+        var srcme = document.createAttribute("src");
+        srcme.value = "/Images/Articles/300x300.png";
+        stockimg.setAttributeNode(srcme);
+
+        var arDiv = document.createElement("div");
+        arDiv.className = "arDiv";
+        arDiv.setAttribute("onmouseover", "setA(this," + 10000 + ")");
+        arDiv.setAttribute("onmouseout", "unsetA(this," + 10000 + ")");
+        arDiv.appendChild(strDiv);
+        arDiv.appendChild(stockimg);
+
+        var arLink = document.createElement("a");
+        arLink.id = "articleme-0";
+        var hrmee = document.createAttribute("href");
+        hrmee.value = "#";
+        arLink.setAttributeNode(hrmee);
+        arLink.appendChild(arDiv);
+
+        document.getElementById("mainArsDiv").appendChild(arLink);
+    }
+
+    var textheadmes = putHTMLEditor(document.getElementById("resultHead"), 889, { x: "100%", y: "30px", ymax: "30px", ymin: "30px" }, [document.getElementById("imlabdiv0-head"), stockcaption]);
+    var textcontentme = putHTMLEditor(document.getElementById("resultDiv2"), 789, { x: "100%", y: "500px" }, [document.getElementById("imlabdiv0-label"), ArSum]);
+
+    //375 - 500
+
+    textheadmes.addEventListener("keyup", function () {
+        if (stockcaption.innerHTML.length > 375) {
+            stockcaption.innerHTML = stockcaption.innerHTML.substr(0, 372) + "...";
+            ArSum.innerHTML = "...";
+        }
+        else if (stockcaption.innerHTML.length * 1.3 + ArSum.innerHTML.length > 500) {
+            ArSum.innerHTML = ArSum.innerHTML.substr(0, Math.max(0, 497 - stockcaption.innerHTML.length * 1.3)) + "...";
+        }
+        ArSum.style.top = parseInt(window.getComputedStyle(stockcaption).getPropertyValue("height")) + 36 + "px";
+    });
+    textcontentme.addEventListener("keyup", function () {
+
+        if (stockcaption.innerHTML.length >= 375) {
+            ArSum.innerHTML = "";
+        }
+        else if (stockcaption.innerHTML.length * 1.3 + ArSum.innerHTML.length > 500) {
+            ArSum.innerHTML = ArSum.innerHTML.substr(0, Math.max(0, 497 - stockcaption.innerHTML.length * 1.3)) + "...";
+        }
+        ArSum.style.top = parseInt(window.getComputedStyle(stockcaption).getPropertyValue("height")) + 36 + "px";
+    });
+</script>

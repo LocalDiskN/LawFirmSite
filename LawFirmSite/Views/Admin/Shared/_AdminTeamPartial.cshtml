@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/StyleNScript/Team/TeamSheet1.css" rel="stylesheet" />
+
+
+<div class="container" style="margin-bottom: 8%; position:relative;">
+    <h2 id="PageHeadline" class="text-center headitem headlineColor"></h2>
+    <div class="" id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+    <div id="headshots" style="position:relative;">
+
+    </div>
+</div>
+<a id="CreateEmployee" class="buttonLink bluebuttonLinkhollow" style="font-size:24px; margin-left:45%; text-align:center;" href="/Team/Create/"></a>
+
+
+<script src="~/StyleNScript/Team/TeamScript.js"></script>
+<script src="~/StyleNScript/Articles/ArticleScript.js"></script>
+<script src="~/StyleNScript/Generals/PutLinksScript.js"></script>
+<script src="~/StyleNScript/Generals/AdminScript.js"></script>
+<script src="~/StyleNScript/Team/TeamAdminScript.js"></script>
+<script>
+    var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            if (window.location.href.indexOf("Admin") === -1) {
+                putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, "Team"), link: "#" }]);
+            }
+            break;
+        }
+    }
+    var personel = @Html.Raw(Json.Encode(Model));
+    document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+    document.getElementById("CreateEmployee").innerHTML = getValueFromDic(crumbstr.Content, "Create");
+    var mydiv = document.getElementById("headshots");
+
+    var buttonlinks = [
+        { inner: '<i class="fas fa-times"></i>', class: "buttonLink redbuttonLinkhollow", address: "#", hmessage: { message: getValueFromDic(crumbstr.Content, "Delete"), class: "buttonLink redbuttonLinkhollow" } },
+        { inner: '<i class="far fa-edit"></i>', class: "buttonLink bluebuttonLinkhollow", address: "#", hmessage: { message: getValueFromDic(crumbstr.Content, "Edit"), class: "buttonLink bluebuttonLinkhollow" } }
+    ]
+    var epms = [];
+    for (var i = 0; i < personel.length; i++) {
+        var imgDiv = document.createElement("div");
+        imgDiv.className = "imgDiv2";
+        imgDiv.setAttribute("onmouseover", "getBig(this," + (i + 40000) + ")");
+        imgDiv.setAttribute("onmouseout", "getSmall(this," + (i + 40000) + ")");
+
+        var stockimg = document.createElement("img");
+        stockimg.className = "imgMe";
+        var srcme = document.createAttribute("src");
+        srcme.value = personel[i].ImgUrl;
+        stockimg.setAttributeNode(srcme);
+        imgDiv.appendChild(stockimg);
+
+        var stockcaption = document.createElement("h4");
+        stockcaption.innerHTML = personel[i].Fullname;
+        stockcaption.className = "text-center";
+        stockcaption.style.marginTop = "10px";
+        imgDiv.appendChild(stockcaption);
+
+        var stockcaption2 = document.createElement("h4");
+        stockcaption2.innerHTML = personel[i].Job;
+        stockcaption2.style.fontSize = "18px";
+        stockcaption2.style.fontWeight = "200";
+        stockcaption2.className = "text-center";
+        imgDiv.appendChild(stockcaption2);
+
+        var divLink = document.createElement("a");
+        divLink.style.position = "absolute";
+        divLink.id = "divmeTeamlinkssc-" + i;
+        var hrme = document.createAttribute("href");
+        hrme.value = "/Team/Profileme/?id=" + personel[i].idme;
+        divLink.setAttributeNode(hrme);
+        //var row = parseInt(i / 3);
+        //divLink.style.top = row * 500 + "px";
+
+        //var col = i % 3;
+        //divLink.style.left = col * 350 + "px";
+
+        divLink.appendChild(imgDiv);
+        mydiv.appendChild(divLink);
+        epms.push(divLink);
+        buttonlinks[0].onmousedown = "empDelete('" + i + "','/Team/Delete/',  { NameOrid: '" + personel[i].idme + "', LangAbr: '" + crumbstr.Abbreviation + "'} , 'divmeTeamlinkssc-" + i + "')";
+        buttonlinks[1].address = "/Team/Edit/?id=" + personel[i].idme;
+        putlinkss(imgDiv, 4000 + (i * 4), buttonlinks, "right", "0px", "0px");
+    }
+
+    window.addEventListener("load", function () {
+        centerThese(mydiv, epms);
+        //mydiv.style.height = (parseInt(personel.length / 3) + (personel.length % 3 === 0 ? 0 : 1) ) * 450 + "px";
+    });
+    window.addEventListener("resize", function () {
+        centerThese(mydiv, epms);
+        //mydiv.style.height = (parseInt(personel.length / 3) + (personel.length % 3 === 0 ? 0 : 1) ) * 450 + "px";
+    });
+</script>

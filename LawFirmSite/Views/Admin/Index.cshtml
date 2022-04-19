@@ -1,0 +1,139 @@
+﻿@model LawFirmSite.AdminPart.Models.ControlPanelModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+}
+<h2 id="PageHeadline" class="headitem text-center headlineColor"></h2>
+<div class="" id="breadCrumbs">
+
+</div>
+
+<div class="accordion" id="accordionExample">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button id="About" class="linkCss btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1"></button>
+            </h5>
+        </div>
+
+        <div id="collapse-1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body accordionbodyback">
+                @Html.Partial("~/Views/Admin/Shared/_AdminAboutPartial.cshtml", Model.abouts)
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button id="Practices" class="linkCss btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2"></button>
+            </h5>
+        </div>
+        <div id="collapse-2" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body accordionbodyback">
+                @Html.Partial("~/Views/Admin/Shared/_AdminPracticesPartial.cshtml", Model.practices)
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button id="Team" class="linkCss btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3"></button>
+            </h5>
+        </div>
+        <div id="collapse-3" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body accordionbodyback">
+                @*@Html.Partial("~/Views/Admin/Shared/_AdminTeamPartial.cshtml", Model.employees)*@
+                @Html.Partial("~/Views/Admin/Shared/_AdminEmployeePartial.cshtml", Model.employees)
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+                <button id="Articles" class="linkCss btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-4" aria-expanded="false" aria-controls="collapse-4"></button>
+            </h5>
+        </div>
+        <div id="collapse-4" class="collapse show" aria-labelledby="headingFour" data-parent="#accordionExample">
+            <div class="card-body accordionbodyback">
+                @Html.Partial("~/Views/Admin/Shared/_AdminArticlesPartial.cshtml", Model.articles)
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingFive">
+            <h5 class="mb-0">
+                <button id="Announcements" class="linkCss btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-5" aria-expanded="false" aria-controls="collapse-5"></button>
+            </h5>
+        </div>
+        <div id="collapse-5" class="collapse show" aria-labelledby="headingFive" data-parent="#accordionExample">
+            <div class="card-body accordionbodyback">
+                @Html.Partial("~/Views/Admin/Shared/_AdminAnnouncementsPartial.cshtml", Model.announcements)
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingSix">
+            <h5 class="mb-0">
+                <button id="Contact" class="linkCss btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-6" aria-expanded="false" aria-controls="collapse-6"></button>
+            </h5>
+        </div>
+        <div id="collapse-6" class="collapse show" aria-labelledby="headingSix" data-parent="#accordionExample">
+            <div class="card-body accordionbodyback">
+                @Html.Partial("~/Views/Admin/Shared/_AdminContactPartial.cshtml")
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="heading-7">
+            <h5 class="mb-0">
+                <button id="Translations" class="linkCss btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-7" aria-expanded="false" aria-controls="collapse-7"></button>
+            </h5>
+        </div>
+        <div id="collapse-7" class="collapse show" aria-labelledby="heading-7" data-parent="#accordionExample">
+            <div class="card-body accordionbodyback">
+                @Html.Partial("~/Views/Admin/Shared/_AdminLanguagesPartial.cshtml", Model.languages)
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, getControllerName()), link: "#" }]);
+            break;
+        }
+    }
+    document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+
+    var colapseone = document.getElementById("collapse-1");
+
+
+    var headarray = document.getElementsByClassName("collapsed");
+
+    for (var i = 0; i < headarray.length; i++) {
+        headarray[i].innerHTML = getValueFromDic(crumbstr.Content, headarray[i].id);
+    }
+
+    headarray[0].addEventListener("mouseup", function () {
+        if (colapseone.className === "collapse") {
+            var ttto = setInterval(function () {
+                if (colapseone.className === "collapse show") {
+                    clearInterval(ttto);
+                    for (var i = 0; i < expdivs.length; i++) {
+                        setHeighttoElems(expdivs[i], [document.getElementById(expdivs[i].id + "-label"), document.getElementById(expdivs[i].id + "-img")]);
+                    }
+                }
+            }, 500);
+
+        }
+    });
+    window.addEventListener("load", function () {
+        for (var i = 1; i < 8; i++) {
+            document.getElementById("collapse-" + i).className = "collapse";
+        }
+    });
+    
+</script>

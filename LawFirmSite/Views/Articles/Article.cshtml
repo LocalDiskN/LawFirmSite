@@ -1,0 +1,42 @@
+﻿@model LawFirmSite.Models.ArticlePageModel
+@{
+    if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+    }
+}
+<div class="container headitem">
+    <div id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+    <h4 id="titlhme" class="mt-4 mb-3 headlineColor" style="text-align:center;"></h4>
+
+    <label id="contentlabel" style="white-space: pre-wrap;">
+        
+    </label>
+
+    <a id="authlinkme" class="linkCss" href="/Team/Profileme/?id=@Model.Authid"></a>
+</div>
+
+
+<script>
+    {
+        var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+        var controller = getControllerName();
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, controller), link: "/" + controller + "/" }, { page: getValueFromDic(crumbstr.Content, controller), link: "#" }]);
+            break;
+        }
+    }
+    //document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+    }
+
+    var modelme = @Html.Raw(Json.Encode(Model));
+
+    document.getElementById("contentlabel").innerHTML = modelme.Content;
+    document.getElementById("titlhme").innerHTML = modelme.Title;
+    document.getElementById("authlinkme").innerHTML = modelme.AuthFullname;
+</script>

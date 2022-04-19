@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/StyleNScript/Announcements/AnnouncementsSheet1.css" rel="stylesheet" />
+<div class="container">
+    <h2 id="PageHeadline" class="headitem text-center headlineColor"></h2>
+    <div id="breadCrumbs">
+
+    </div>
+
+    <hr class="hedlineHr" />
+    <div id="mainAnsDiv" style="text-align:center;">
+
+    </div>
+</div>
+
+<script src="~/StyleNScript/Announcements/AnnouncementsScript.js"></script>
+<script src="~/StyleNScript/Generals/PutLinksScript.js"></script>
+<script src="~/StyleNScript/Generals/AdminScript.js"></script>
+<script>
+    var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            if (window.location.href.indexOf("Admin") === -1) {
+                putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, getControllerName()), link: "#" }]);
+            }
+            break;
+        }
+    }
+    document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+
+    var ansArray = @Html.Raw(Json.Encode(Model));
+    
+
+    var maindiv = document.getElementById("mainAnsDiv");
+    for (var i = 0; i < ansArray.length; i++) {
+        var ansDiv = document.createElement("div");
+        ansDiv.className = "AnsDiv";
+
+        var stockcaption = document.createElement("h4");
+        stockcaption.className = "AnsHeader";
+        stockcaption.innerHTML = ansArray[i].Title;
+        ansDiv.appendChild(stockcaption);
+
+        var content = document.createElement("h6");
+        content.innerHTML = ansArray[i].Summary;
+
+        ansDiv.appendChild(content);
+
+
+        var divLink = document.createElement("a");
+        divLink.id = "announcemelink-" + i;
+        divLink.className = "AnsLink";
+        var hrme = document.createAttribute("href");
+        hrme.value = "/Announcements/Announcement/?id=" + ansArray[i].idme;
+        divLink.setAttributeNode(hrme);
+
+        ansDiv.setAttribute("onmouseover", "getABig(this," + i + ")");
+        ansDiv.setAttribute("onmouseout", "getASmall(this," + i + ")");
+
+        divLink.appendChild(ansDiv);
+        maindiv.appendChild(divLink);
+        content.style.top = parseInt(window.getComputedStyle(stockcaption).getPropertyValue("height")) + 36 + "px";
+    }
+
+</script>

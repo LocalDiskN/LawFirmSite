@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Çelebi Law Firm website.Çelebi Hukuk ve danışmanlık bürosu sitesi.">
+    <meta name="keywords" content="Law,Firm,Çelebi,Hukuk,Danışmanlık,Büro,Ceza,Aile,İcra,Tüketici,Hukuku">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çelebi Hukuk ve Danışmanlık (Admin)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="~/StyleNScript/Generals/Site.css" rel="stylesheet" />
+    <link href="~/StyleNScript/Layout/LayoutSheet1.css" rel="stylesheet" />
+    <link href="~/StyleNScript/Generals/Dropdownmes.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" integrity="sha256-0rguYS0qgS6L4qVzANq4kjxPLtvnp5nn2nB5G1lWRv4=" crossorigin="anonymous"></script>
+    <script src="~/StyleNScript/Generals/GeneralScript.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</head>
+<body id="navme" style="background-color:#F8F9FA;">
+    <nav id="navbarme" class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color:rgba(248, 249, 250, 0.98);">
+
+        <div id="down-main" style="position: absolute; right: 15%; top: 0px;">
+            <label id="Language" class="LayoutlinkCss dropdownme-toggle"></label>
+            <div id="droplangs-child" class="dropdownme-child">
+
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <div class="container">
+            <a href="/Home/Index"><img src="~/Images/logo2-3.png" style="max-height: 80px;" class="navbar-brand" /></a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav ml-auto mr-5 mt-2 mt-lg-0" style="font-size: 16px;">
+                    <li class="nav-item mr-3">
+                        <a id="Home" class="LayoutlinkCss" style="" href="/Home/Index"></a>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a id="About" class="LayoutlinkCss" style="" href="/About/Index"></a>
+                    </li>
+                    <li id="pmebaby" class="nav-item mr-3">
+                        <a id="Practices" class="LayoutlinkCss" href="/Practices/Index"><img id="iimg" src="~/Images/DownIcon2.png" /></a>
+                        <div id="practiceme" class="practicesDiv">
+
+                        </div>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a id="Team" class="LayoutlinkCss" href="/Team/Index"></a>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a id="Articles" class="LayoutlinkCss" href="/Articles/Index"></a>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a id="Announcements" class="LayoutlinkCss" href="/Announcements/Index"></a>
+                    </li>
+                    <li class="nav-item mr-5">
+                        <a id="Contact" class="LayoutlinkCss" href="/Contact/Index"></a>
+                    </li>
+                    <li id="CPbuttonList" class="nav-item mr-3">
+                        <a id="Admin" class="LayoutlinkCss" href="/Admin/Index"></a>
+                        <div id="ControlPanel" class="practicesDiv">
+                            <a id="Settings" class="LayoutlinkCss" href="/Account/Settings"></a>
+                            <a id="Logout" class="LayoutlinkCss" href="/Account/Logout"></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="body-content">
+        @RenderBody()
+        <hr />
+
+    </div>
+
+
+    <footer style="background-color:rgb(176, 75, 75); font: bold 16px arial;">
+        <div id="footer" class="container">
+            <div id="FSitemap">
+
+            </div>
+
+            <div id="FContactDiv">
+
+            </div>
+
+            <div id="fmap">
+
+            </div>
+        </div>
+    </footer>
+    <div id="copyrightdiv">
+
+        <P>©Copyrigth 2018 ÇELEBİ HUKUK VE DANIŞMANLIK</P>
+        <label>powered by Nazım Can Türkeş</label>
+    </div>
+    <script src="~/StyleNScript/Generals/PutLinksScript.js"></script>
+    <script>
+        var mouseoverflag = false;
+        var mylist = document.getElementById("practiceme");
+        var logout = document.getElementById("ControlPanel");
+        var dropdis = document.getElementById("droplangs-child");
+
+        var model = @Html.Raw(Json.Encode(ViewBag.LayoutModel));
+
+        for (var i = 0; i < model.practices.length; i++) {
+            var divLink = document.createElement("a");
+            divLink.className = "linkCss";
+            var hrme = document.createAttribute("href");
+            hrme.value = "/Practices/Practice/?id=" + model.practices[i].idme;
+            divLink.setAttributeNode(hrme);
+            divLink.innerHTML = getInside(model.practices[i].Title);
+
+            mylist.appendChild(divLink);
+        }
+
+        var fsitemp = document.getElementById("FSitemap");
+        var contdiv = document.getElementById("FContactDiv");
+        var fMap = document.getElementById("fmap");
+
+        //window.location.href
+        for (i = 1; i < model.languages.length; i++) {
+            var divLink = document.createElement("a");
+            divLink.className = "dropdownme-link";
+            var hrme = document.createAttribute("href");
+            var parpos = window.location.href.indexOf("?");
+            if (parpos === -1) {
+                hrme.value = window.location.href + "?lang=" + model.languages[i].Abbreviation;
+            }
+            else {
+                parpos = window.location.href.indexOf("lang=");
+                if (parpos === -1) {
+                    hrme.value = window.location.href + "&lang=" + model.languages[i].Abbreviation;
+                }
+                else {
+                    var parpos2 = window.location.href.indexOf("&", parpos + 5);
+                    if (parpos2 === -1) {
+                        hrme.value = window.location.href.substr(0, parpos + 5) + model.languages[i].Abbreviation;
+                    }
+                    else {
+                        hrme.value = window.location.href.substr(0, parpos + 5) + model.languages[i].Abbreviation + window.location.href.substr(parpos2);
+                    }
+                }
+            }
+            divLink.setAttributeNode(hrme);
+            divLink.innerHTML = getInside(model.languages[i].Title) + "(" + getInside(model.languages[i].Abbreviation) + ")";
+
+            dropdis.appendChild(divLink);
+
+            if (model.languages[i].Content !== "") {
+                document.title = getValueFromDic(model.languages[i].Content, "WebsiteTitle") + " (Admin)";
+                var linkarray = document.getElementsByClassName("LayoutlinkCss");
+
+                for (var ai = 0; ai < linkarray.length; ai++) {
+                    if (linkarray[ai].id === "Practices") {
+                        linkarray[ai].innerHTML = getValueFromDic(model.languages[i].Content, linkarray[ai].id) + '<img id="iimg" src="/Images/DownIcon2.png" />';
+                    }
+                    else {
+                        linkarray[ai].innerHTML = getValueFromDic(model.languages[i].Content, linkarray[ai].id);
+                    }
+                }
+
+                var fpar = document.createElement("p");
+                fpar.style.font = "26px Times New Roman";
+                fpar.style.color = "white";
+                fpar.style.marginBottom = "8%";
+                fpar.innerHTML = getValueFromDic(model.languages[i].Content, "SiteMap");
+                fsitemp.appendChild(fpar);
+
+                for (var a = 1; a < linkarray.length - 3; a++) {
+                    var divLink = document.createElement("a");
+                    divLink.className = "FootCssLink";
+                    var hrme = document.createAttribute("href");
+                    hrme.value = "/" + linkarray[a].id + "/";
+                    divLink.setAttributeNode(hrme);
+                    divLink.innerHTML = getValueFromDic(model.languages[i].Content, linkarray[a].id);
+                    fsitemp.appendChild(divLink);
+                }
+                var fpar = document.createElement("p");
+                fpar.innerHTML = "<br />";
+                fsitemp.appendChild(fpar);
+
+
+                if (getControllerName() !== "Contact") {
+                    var conHpar = document.createElement("p");
+                    conHpar.color = "white";
+                    conHpar.style.marginBottom = "5%";
+                    conHpar.style.font = "26px Times New Roman";
+                    conHpar.innerHTML = getValueFromDic(model.languages[i].Content, "ContactUs");
+                    contdiv.appendChild(conHpar);
+                    for (var ai = 1; ai < model.contacts.length; ai++) {
+                        var conpar = document.createElement("p");
+                        if (model.contacts[ai].Cicon === null) {
+                            model.contacts[ai].Cicon = "";
+                        }
+                        var inner = model.contacts[ai].Cicon + "<br />";
+                        for (var a = 0; a < model.contacts[ai].Contents.length; a++) {
+                            inner = inner + model.contacts[ai].Contents[a] + "<br />";
+                        }
+                        conpar.innerHTML = inner;
+                        contdiv.appendChild(conpar);
+                    }
+                    var inner = "";
+                    for (var ai = (300 - parseInt(window.getComputedStyle(contdiv).getPropertyValue("height"))) / 18; ai > 1; ai--) {
+                        inner = inner + "<br />";
+                    }
+                    var conpar = document.createElement("p");
+                    conpar.innerHTML = inner;
+                    contdiv.appendChild(conpar);
+                }
+                else {
+                    contdiv.style.height = "0px";
+                    fMap.style.height = "0px";
+                }
+
+            }
+        }
+
+        document.getElementById("Admin").addEventListener("mouseover", function () {
+
+                animate(logout, 946, "opacity", "1", 300, true, "block");
+            });
+            document.getElementById("CPbuttonList").addEventListener("mouseover", function () {
+                mouseoverflag = false;
+            });
+
+        document.getElementById("Practices").addEventListener("mouseover", function () {
+
+            animate(mylist, 945, "opacity", "1", 300, true, "block");
+        });
+
+        document.getElementById("practiceme").addEventListener("mouseover", function () {
+            mouseoverflag = false;
+        });
+        document.getElementById("iimg").addEventListener("mouseover", function () {
+            mouseoverflag = false;
+        });
+        document.getElementById("iimg").addEventListener("mousedown", function () {
+            mouseoverflag = false;
+            animate(mylist, 945, "opacity", "1", 300, true, "block");
+        });
+        document.getElementById("iimg").addEventListener("mouseout", function () {
+            mouseoverflag = false;
+        });
+        document.getElementById("Practices").addEventListener("mouseout", function () {
+            mouseoverflag = true;
+        });
+        document.getElementById("pmebaby").addEventListener("mouseover", function () {
+            mouseoverflag = false;
+        });
+
+        var isvisible = false;
+        document.getElementById("navme").addEventListener("mouseover", function () {
+
+            if (mouseoverflag) {
+                mouseoverflag = false;
+                animate(mylist, 945, "opacity", 0, 300, true, "none");
+
+                animate(logout, 946, "opacity", 0, 300, true, "none");
+
+                animate(dropdis, 45678, "opacity", 0, 100, true, "none");
+            }
+            else {
+                mouseoverflag = true;
+            }
+        });
+        document.getElementById("Language").addEventListener("mouseover", function () {
+            animate(dropdis, 45678, "opacity", 1, 100, true, "block");
+        });
+        document.getElementById("Language").addEventListener("mousedown", function () {
+            window.location.href = "/Admin/Translations/";
+        });
+        document.getElementById("down-main").addEventListener("mouseover", function () {
+            mouseoverflag = false;
+        });
+        dropdis.addEventListener("mouseover", function () {
+            mouseoverflag = false;
+    });
+
+
+        var footer = document.getElementById("footer");
+
+        putlinkss(footer, 4587465, [{ inner: '<i class="fab fa-facebook-f"></i>', class: "socialbuttons facebookcolor", address: "#" }, { inner: '<i class="fab fa-twitter"></i>', class: "socialbuttons twittercolor", address: "#" }], "left", "10px", "10px");
+
+        window.addEventListener("resize", function () {
+            setHeighttoElems(footer, [fsitemp, contdiv, fMap], 60);
+        });
+
+        window.addEventListener("load", function () {
+            setHeighttoElems(footer, [fsitemp, contdiv, fMap], 60);
+        });
+
+        if (document.getElementById("map") == undefined) {
+            function initMap() {
+                // The location of Uluru
+                var uluruz = { lat: parseFloat(model.contacts[0].Contents[0]), lng: parseFloat(model.contacts[0].Contents[1]) };
+                // The map, centered at Uluru
+                var fmap = new google.maps.Map(
+                    fMap, { zoom: 18, center: uluruz });
+                // The marker, positioned at Uluru
+                var marker = new google.maps.Marker({ position: uluruz, map: fmap });
+            }
+        }
+
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6LP357YE5W9faJAnFbFLMbMBFwPV5TrQ&callback=initMap">
+    </script>
+</body>
+</html>
+
+@*AIzaSyBlbkH-j-cUibYPAv--CdU1aSmSdeMs2nk*@
+@*denizabi key = AIzaSyD6LP357YE5W9faJAnFbFLMbMBFwPV5TrQ*@

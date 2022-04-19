@@ -1,0 +1,114 @@
+﻿@model IEnumerable<LawFirmSite.Entity.Language>
+
+<link href="~/StyleNScript/Team/TeamCreateSheet1.css" rel="stylesheet" />
+<div class="container">
+    <h2 id="PageHeadline" class="headitem text-center headlineColor"></h2>
+    <div id="breadCrumbs">
+
+    </div>
+    <div id="langmes">
+
+    </div>
+</div>
+
+<button id="CreateTranslation" class="buttonLink bluebuttonLinkhollow hoverme" style="font-size:24px; margin-left:45%; margin-top:30px; text-align:center;"></button>
+
+<script src="~/StyleNScript/Generals/putAccordionScript.js"></script>
+<script src="~/StyleNScript/Generals/PutLinksScript.js"></script>
+<script src="~/StyleNScript/Generals/HTMLEditorScript.js"></script>
+<script src="~/StyleNScript/Generals/AdminScript.js"></script>
+<script src="~/StyleNScript/Languages/putLanguagesEditArrayScript.js"></script>
+<script>
+    var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            if (window.location.href.indexOf("Translations") !== -1) {
+                putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, "Translations"), link: "#" }]);
+                document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, "Translations");
+            }
+            break;
+        }
+    }
+    document.getElementById("CreateTranslation").innerHTML = getValueFromDic(crumbstr.Content, "Create");
+    var htur = document.createElement("h3");
+    htur.innerHTML = "türkçe içerik";
+
+    var heng = document.createElement("h3");
+    heng.innerHTML = "English content";
+
+    languageArray = @Html.Raw(Json.Encode(Model));
+
+    var buttonlinks = [];
+    var langnamesnabrs = [];
+
+    for (var i = 1; i < languageArray.length; i++) {
+        buttonlinks.push({ inner: '<i class="fas fa-times"></i>', class: "buttonLink redbuttonLinkhollow", address: "#", hmessage: { message: getValueFromDic(crumbstr.Content, "Delete"), class: "buttonLink redbuttonLinkhollow" }, onmousedown: "asyncDelete('/Admin/TraslationDelete/',  { NameOrid: '" + languageArray[i].Id + "', LangAbr: '" + crumbstr.Abbreviation + "'} ,)" });
+        langnamesnabrs.push(languageArray[i].Title + "(" + languageArray[i].Abbreviation + ")");
+    }
+
+    var langTAs = putLanguagesEditArray(languageArray, putAccordion(document.getElementById("langmes"), 8, langnamesnabrs.length, langnamesnabrs, buttonlinks), 8);
+
+    for (var i = 1; i < languageArray.length; i++) {
+        document.getElementById("saveTranslation-8-" + i).addEventListener("mousedown", function () {
+            var langoff = parseInt(this.id.substr(this.id.lastIndexOf("-") + 1));
+
+            var editmodel = {
+                lang: crumbstr.Abbreviation, Title: langTAs[langoff - 1][0].TA.value, Abbreviation: langTAs[langoff - 1][1].TA.value,
+                Content: contentify(langTAs, langoff - 1), idme: languageArray[langoff].Id
+            }
+
+            document.getElementById(languageArray[langoff].Title + "(" + languageArray[langoff].Abbreviation + ")").innerHTML = langTAs[langoff - 1][0].TA.value + "(" + langTAs[langoff - 1][1].TA.value + ")";
+
+            asyncEdit("/Admin/Traslation", editmodel);
+        });
+    }
+
+    nameWid(crumbstr.Content);
+    nameWinner(crumbstr.Content);
+
+    var idoffitr = 8 + langnamesnabrs.length;
+    document.getElementById("CreateTranslation").addEventListener("mouseup", function () {
+        parameterme = { NameOrid: "NewLanguage-" + idoffitr, LangAbr: crumbstr.Abbreviation };
+        $.ajax({
+            type: 'POST',
+            url: "/Admin/TraslationCreate",
+            dataType: 'json',
+            data: { createmodel: parameterme },
+
+            success: function (data, textStatus, jqXHR) {
+
+                var newLanguage = [];
+                newLanguage.push(languageArray[0]);
+                newLanguage.push({ Title: "NewLanguage-" + idoffitr, Abbreviation: "new", Content: "", Id: parseInt(data.createmodel.NameOrid) });
+
+                buttonlinks = [{ inner: '<i class="fas fa-times"></i>', class: "buttonLink redbuttonLinkhollow", address: "#", hmessage: { message: getValueFromDic(crumbstr.Content, "Delete"), class: "buttonLink redbuttonLinkhollow" }, onmousedown: "asyncDelete('/Admin/TraslationDelete/',  { NameOrid: '" + data.createmodel.NameOrid + "', LangAbr: '" + crumbstr.Abbreviation + "'} ,)" }]
+                
+                var langTAnew = putLanguagesEditArray(newLanguage, appendAccordion(document.getElementById("accordion-" + 8), idoffitr, 1, [], buttonlinks), idoffitr);
+                document.getElementById("accButt-" + idoffitr).innerHTML = "NewLanguage-" + idoffitr + "(new)";
+                document.getElementById("saveTranslation-" + idoffitr + "-1").addEventListener("mousedown", function () {
+                    var langoff = this.id.indexOf("-") + 1;
+                    //console.log("accButt-" + this.id.substr(langoff, this.id.lastIndexOf("-") - langoff));
+                    document.getElementById("accButt-" + this.id.substr(langoff, this.id.lastIndexOf("-") - langoff)).innerHTML = langTAnew[0][0].TA.value + "(" + langTAnew[0][1].TA.value + ")";
+                    langoff = 1;
+                    var editmodel = {
+                        lang: crumbstr.Abbreviation, Title: langTAnew[langoff - 1][0].TA.value, Abbreviation: langTAnew[langoff - 1][1].TA.value,
+                        Content: contentify(langTAnew, langoff - 1), idme: parseInt(data.createmodel.NameOrid)
+                    }
+                    
+                    asyncEdit("/Admin/Traslation", editmodel);
+                });
+                idoffitr++;
+
+                putMessage({ success: getValueFromDic(crumbstr.Content, "ContentCreated") }, 2000);
+            },
+
+            error: function () {
+                alert('error');
+            }
+        });
+
+        
+    });
+</script>

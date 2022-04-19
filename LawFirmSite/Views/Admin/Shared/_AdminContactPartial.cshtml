@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/StyleNScript/Contact/ContactAdminSheet1.css" rel="stylesheet" />
+<div class="bigContainer">
+    <h2 id="PageHeadlinecon" class="headitem text-center headlineColor"></h2>
+    <div style="position:relative">
+        <div style="width: 50%; height:100%; background-color: rgb(233, 234, 234); opacity:0.9; position:absolute;">
+
+        </div>
+        <div id="puteverythighere" style="padding-left: 4%; z-index:3;">
+
+        </div>
+        <div style="opacity:0.99">
+            <a id="CreateCont" class="namemebyinner buttonLink bluebuttonLinkhollow hoverme" style="font-size:24px; margin-left:45%; text-align:center;">Create</a>
+        </div>
+        
+    </div>
+    
+</div>
+<script src="~/StyleNScript/Generals/AdminScript.js"></script>
+<script src="~/StyleNScript/Generals/PutLinksScript.js"></script>
+<script src="~/StyleNScript/Generals/HTMLEditorScript.js"></script>
+<script src="~/StyleNScript/Contact/AdminContactScript.js"></script>
+<script>
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            break;
+        }
+    }
+    document.getElementById("PageHeadlinecon").innerHTML = getValueFromDic(crumbstr.Content, "Contact");
+    var contactinfos = @Html.Raw(Json.Encode(ViewBag.LayoutModel.contacts));
+    var puteverythighere = document.getElementById("puteverythighere");
+
+
+    var addlinks = [
+        { inner: '<i class="fas fa-plus"></i>', class: "buttonLink bluebuttonLinkhollow fullweigth", address: "", hmessage: { message: getValueFromDic(crumbstr.Content, "Add"), class: "buttonLink bluebuttonLinkhollow", onmousedown: "" } },
+        { inner: '<i class="fas fa-check"></i>', class: "buttonLink bluebuttonLinkhollow fullweigth", address: "", hmessage: { message: getValueFromDic(crumbstr.Content, "Save"), class: "buttonLink bluebuttonLinkhollow", onmousedown: "" } }
+    ];
+
+
+    var parinfdiv = document.createElement("div");
+    parinfdiv.className = "parinfdiv";
+    puteverythighere.appendChild(parinfdiv);
+
+    var childinfdiv = document.createElement("div");
+    childinfdiv.className = "childinfdiv mb-4";
+    parinfdiv.appendChild(childinfdiv);
+    
+
+    var infohead = document.createElement("h5");
+    infohead.id = "conhead-" + 0;
+    infohead.className = "conh";
+    childinfdiv.appendChild(infohead);
+
+    var htmledit = document.createElement("div");
+    htmledit.id = "htmledit-0-" + 0;
+    htmledit.className = "htmledit";
+    childinfdiv.appendChild(htmledit);
+
+    putHTMLEditor(document.getElementById("htmledit-0-0"), -78900, { x: "90%", y: "30px", ymax: "30px", ymin: "30px" }, [document.getElementById("conhead-0")], ["all"], contactinfos[0].Title);
+
+    for (var a = 0; a < contactinfos[0].Contents.length; a++) {
+        var childinfdiv = document.createElement("div");
+        childinfdiv.className = "childinfdiv mb-4";
+        parinfdiv.appendChild(childinfdiv);
+
+        var cont = document.createElement("div");
+        cont.id = "subCont-" + 0 + "-" + (a + 1);
+        cont.className = "conp";
+        childinfdiv.appendChild(cont);
+
+        var htmledit = document.createElement("div");
+        htmledit.id = "htmledit-0-" + (a + 1);
+        htmledit.className = "htmledit";
+        childinfdiv.appendChild(htmledit);
+
+        putHTMLEditor(document.getElementById("htmledit-0-" + (a + 1)), -78900 + (-1 * a), { x: "90%", y: "30px", ymax: "30px", ymin: "30px" }, [document.getElementById("subCont-" + 0 + "-" + (a + 1))], [], contactinfos[0].Contents[a]);
+    }
+
+    
+    var deletelinks = [
+        { inner: '<i class="fas fa-times"></i>', class: "buttonLink redbuttonLinkhollow fullweigth", address: "", hmessage: { message: getValueFromDic(crumbstr.Content, "Delete"), class: "buttonLink redbuttonLinkhollow", onmousedown: "" } }
+    ];
+    var i = 1;
+    for (; i < contactinfos.length; i++) {
+        var parinfdiv = document.createElement("div");
+        parinfdiv.id = "mainCont-" + i;
+        parinfdiv.className = "parinfdiv";
+        puteverythighere.appendChild(parinfdiv);
+
+        var childinfdiv = document.createElement("div");
+        childinfdiv.className = "childinfdiv mb-4";
+        parinfdiv.appendChild(childinfdiv);
+
+        var infohead = document.createElement("h5");
+        infohead.id = "conhead-" + i;
+        infohead.className = "conh";
+        childinfdiv.appendChild(infohead);
+
+        var htmledit = document.createElement("div");
+        htmledit.id = "htmledit-" + i;
+        htmledit.className = "htmledit";
+        childinfdiv.appendChild(htmledit);
+
+        deletelinks[0].onmousedown = "asyncDelete('/Contact/Delete/',  { NameOrid: '" + contactinfos[i].idme + "', LangAbr: '" + crumbstr.Abbreviation + "'} , 'mainCont-" + i + "')";
+        putlinkss(parinfdiv, (i + 1) * - 10, deletelinks, "left", "0px", "0px");
+
+        putHTMLEditor(document.getElementById("htmledit-" + i), -78900 * (i * 100), { x: "90%", y: "30px", ymax: "30px", ymin: "30px" }, [document.getElementById("conhead-" + i)], ["all"], contactinfos[i].Title);
+
+        var childinfdiv = document.createElement("div");
+        childinfdiv.className = "childinfdiv mb-4";
+        parinfdiv.appendChild(childinfdiv);
+
+        var cont = document.createElement("div");
+        cont.id = "subCont-" + i + "-" + 0;
+        cont.className = "conp";
+        cont.style.color = "white";
+        childinfdiv.appendChild(cont);
+
+        var htmledit = document.createElement("div");
+        htmledit.id = "htmledit-" + i + "-" + 0;
+        htmledit.className = "htmledit";
+        childinfdiv.appendChild(htmledit);
+
+        putHTMLEditor(document.getElementById("htmledit-" + i + "-0"), -78900 * (i * 99), { x: "90%", y: "30px", ymax: "30px", ymin: "30px" }, [document.getElementById("subCont-" + i + "-" + 0)], [], contactinfos[i].Cicon);
+
+        for (var a = 0; a < contactinfos[i].Contents.length; a++) {
+            var childinfdiv = document.createElement("div");
+            childinfdiv.id = "childinfdiv-" + i + "-" + a;
+            childinfdiv.className = "childinfdiv mb-4";
+            parinfdiv.appendChild(childinfdiv);
+
+            var cont = document.createElement("div");
+            cont.id = "subCont-" + i + "-" + (a + 1);
+            cont.className = "conp subContlabel-" + i;
+            childinfdiv.appendChild(cont);
+
+            var htmledit = document.createElement("div");
+            htmledit.id = "htmledit-" + i + "-" + (a + 1);
+            htmledit.className = "htmledit";
+            childinfdiv.appendChild(htmledit);
+
+            deletelinks[0].onmousedown = "asyncDelete('/Contact/Delete/',  { NameOrid: '" + contactinfos[i].idme + "-" + a + "', LangAbr: '" + crumbstr.Abbreviation + "'} , 'childinfdiv-" + i + "-" + a + "')";
+            putlinkss(childinfdiv, ((i + 1) * -10) - a - 1, deletelinks, "left", "-40px", "30px");
+
+            putHTMLEditor(document.getElementById("htmledit-" + i + "-" + (a + 1)), 78900 * (i * 100) + (-1 * a), { x: "90%", y: "30px", ymax: "30px", ymin: "30px" }, [document.getElementById("subCont-" + i + "-" + (a + 1))], ["all"], contactinfos[i].Contents[a]);
+        }
+
+        addlinks[1].onmousedown = "contactEdit(" + i + "," + contactinfos[i].idme + ")";
+        addlinks[0].onmousedown = "contactAddSub(" + i + "," + contactinfos[i].idme + ")";
+        putlinkss(parinfdiv, ((i + 1) * -10) - contactinfos[i].Contents.length - 3, addlinks, "left", "40px", "0px", "bottom");
+    }
+
+    nameWinner(crumbstr.Content);
+
+    var contactcounter = i;
+
+    document.getElementById("CreateCont").addEventListener("mousedown", function () {
+        //console.log(contactcounter);
+        //console.log(contactinfos.length);
+        contactAdd(contactcounter);
+        contactcounter++;
+    });
+</script>

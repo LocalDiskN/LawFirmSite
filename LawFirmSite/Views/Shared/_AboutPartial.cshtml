@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/StyleNScript/Generals/ExplanationSheet1.css" rel="stylesheet" />
+<div>
+    <div class="headitem" id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+
+</div>
+<div id="explan" class="bigContainer" style="margin-bottom:80px;">
+
+</div>
+<script src="~/StyleNScript/Generals/ExplanationScript.js"></script>
+<script>
+    {
+        var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+
+            putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, getControllerName()), link: "#" }]);
+
+            break;
+        }
+    }
+    }
+    aboutArray = @Html.Raw(Json.Encode(Model));
+    console.log(aboutArray);
+
+    var expdivs = putExplan(document.getElementById("explan"), aboutArray);
+
+    window.addEventListener("load", function () {
+        for (var i = 0; i < expdivs.length; i++) {
+            setHeighttoElems(expdivs[i], [document.getElementById(expdivs[i].id + "-label"), document.getElementById(expdivs[i].id + "-img")]);
+        }
+    });
+
+    window.addEventListener("resize", function () {
+        for (var i = 0; i < expdivs.length; i++) {
+            setHeighttoElems(expdivs[i], [document.getElementById(expdivs[i].id + "-label"), document.getElementById(expdivs[i].id + "-img")]);
+        }
+    });
+</script>

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<LawFirmSite.Models.AnnouncementsModel>
+@{
+    if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+        @Html.Partial("~/Views/Admin/Shared/_AdminAnnouncementsPartial.cshtml", Model)
+    }
+    else
+    {
+        @Html.Partial("_AnnouncementsPartial", Model)
+    }
+
+}

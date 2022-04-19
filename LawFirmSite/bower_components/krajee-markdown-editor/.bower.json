@@ -1,0 +1,45 @@
+{
+  "name": "krajee-markdown-editor",
+  "homepage": "https://github.com/kartik-v/krajee-markdown-editor",
+  "authors": [
+    "Kartik Visweswaran <kartikv2@gmail.com>"
+  ],
+  "description": "A Boostrap styled markdown editor that offers configurable toolbar, live preview, export, fullscreen mode, and more features.",
+  "main": [
+    "./css/markdown-editor.min.css",
+    "./js/markdown-editor.min.js"
+  ],
+  "keywords": [
+    "bootstrap",
+    "markdown",
+    "editor",
+    "extra",
+    "markdown it",
+    "input",
+    "preview",
+    "export"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.9.0",
+    "bootstrap": "~3"
+  },
+  "license": "BSD-3-Clause",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "composer.json",
+    "examples",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "fb36c7dc06",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "fb36c7dc06f169f0e5d857041f0f7694b733961f"
+  },
+  "_source": "https://github.com/kartik-v/krajee-markdown-editor.git",
+  "_target": "*",
+  "_originalSource": "krajee-markdown-editor"
+}

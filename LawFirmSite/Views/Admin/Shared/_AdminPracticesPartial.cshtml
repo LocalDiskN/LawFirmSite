@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/StyleNScript/Home/IndexCss.css" rel="stylesheet" />
+
+<div id="practiceDiv" class="container">
+    <h3 id="PageHeadline" class="text-center headitem headlineColor"></h3>
+    <div id="breadCrumbs">
+
+    </div>
+    <hr class="hedlineHr" />
+
+
+</div>
+<a id="CreatePractice" class="buttonLink bluebuttonLinkhollow" style="font-size:24px; margin-left:45%; text-align:center;" href="/Practices/Create/"></a>
+
+<script src="~/StyleNScript/Practices/PracticesAdminScript.js"></script>
+<script src="~/StyleNScript/Generals/PutLinksScript.js"></script>
+<script src="~/StyleNScript/Generals/AdminScript.js"></script>
+<script>
+    var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            if (window.location.href.indexOf("Admin") === -1) {
+                putCrumbs(document.getElementById("breadCrumbs"), [{ page: getValueFromDic(crumbstr.Content, "Home"), link: "/Home/" }, { page: getValueFromDic(crumbstr.Content, "Practices"), link: "#" }]);
+            }
+            break;
+        }
+    }
+    document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+    document.getElementById("CreatePractice").innerHTML = getValueFromDic(crumbstr.Content, "Create");
+
+    var practiceArray = @Html.Raw(Json.Encode(Model));
+
+    putPractices(document.getElementById("practiceDiv"), practiceArray);
+
+</script>

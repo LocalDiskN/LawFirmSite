@@ -1,0 +1,7 @@
+﻿@model IEnumerable<LawFirmSite.Entity.Language>
+@{
+    ViewBag.Title = "Traslation";
+    Layout = "~/Views/Admin/Shared/_AdminLayout.cshtml";
+
+    @Html.Partial("~/Views/Admin/Shared/_AdminLanguagesPartial.cshtml", Model)
+}

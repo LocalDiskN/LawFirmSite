@@ -1,0 +1,75 @@
+﻿.dropdownme-toggle {
+    color: black;
+    font-size: 14px;
+    margin-left: 6px;
+    position:absolute;
+    left:0px;
+}
+    .dropdownme-toggle:hover {
+        color: darkgray;
+        cursor: pointer;
+    }
+
+.dropdownme-child {
+    display: none;
+    opacity: 0;
+    -moz-border-radius: 20%;
+    -webkit-border-radius: 20%;
+    border-radius: 20%;
+    border-bottom: 2px solid rgb(176, 75, 75);
+    background-color: rgba(248, 249, 250, 0.9);
+    padding: 6px;
+    padding-bottom: 12px;
+    padding-top: 10px;
+    position: absolute;
+    top: 28px;
+    z-index: 20;
+}
+
+.dropdownme-link {
+    display: block;
+    color: black;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+    .dropdownme-link:hover {
+        font-size: 14px;
+        text-decoration: none;
+        color: darkgray;
+    }
+
+
+
+.dropdownme-main > a {
+    color: #6d6d61;
+    font-size: 23px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+    .dropdownme-child > * {
+        display: block;
+    }
+
+.dropdownme-main input[type=checkbox]:checked + .dropdownme-child {
+    display: block;
+    opacity: 1;
+    background-color: rgb(248, 249, 250);
+}
+
+.dropdowntoggle {
+    display:block;
+    opacity: 0;
+    z-index: 1;
+    margin-left: -13px;
+    width: 20px;
+}
+
+    .dropdowntoggle:hover {
+        cursor: pointer;
+    }
+
+.dropdownme-main {
+    margin-bottom: 20px;
+    position: relative;
+}

@@ -1,0 +1,94 @@
+﻿.explanDiv {
+    display: block;
+    white-space: pre-wrap;
+    width: 56%;
+    background-color: rgba(211, 211, 211,0.4);
+    color: black;
+    font-size: 200%;
+    line-height: 200%;
+    margin-left: 38%;
+    margin-right: 5%;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.eximgDiv {
+    position:absolute;
+    width: 30%;
+    height: 800px;
+    margin-top: 5%;
+    margin-left: 5%;
+    opacity: 0.94;
+}
+
+.eximgDiv2 {
+    display: inline-block;
+    width: 40%;
+    margin-top: -38%;
+}
+
+.eximgDiv3 {
+    display: none;
+}
+
+@media screen and (max-width: 1199px) {
+    .explanDiv {
+        white-space: pre-wrap;
+        display: block;
+        width: 56%;
+        background-color: rgba(211, 211, 211,0.4);
+        color: black;
+        font-size: 150%;
+        line-height: 200%;
+        margin-left: 38%;
+        margin-right: 5%;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .eximgDiv {
+        position: absolute;
+        width: 30%;
+        height: 500px;
+        margin-top: 5%;
+        margin-left: 5%;
+        opacity: 0.94;
+    }
+}
+
+@media screen and (max-width: 990px) {
+
+    .eximgDiv {
+        position: absolute;
+        width: 30%;
+        height: 400px;
+        margin-top: 5%;
+        margin-left: 5%;
+        opacity: 0.94;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .explanDiv {
+        white-space: pre-wrap;
+        display: block;
+        width: 92%;
+        background-color: rgba(211, 211, 211,0.4);
+        color: black;
+        font-size: 150%;
+        line-height: 200%;
+        margin-left: 5%;
+        margin-right: 5%;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .eximgDiv {
+        display: none;
+    }
+
+    .eximgDiv2 {
+        display: none;
+    }
+}

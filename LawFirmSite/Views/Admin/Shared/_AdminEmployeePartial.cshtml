@@ -1,0 +1,173 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+}
+<link href="~/StyleNScript/Team/ProfileSheet1.css" rel="stylesheet" />
+<link href="~/StyleNScript/Team/TeamCreateSheet1.css" rel="stylesheet" />
+<div class="container headitem">
+    <div id="profilethisme">
+
+
+    </div>
+    <a id="CreateEmployee" class="buttonLink bluebuttonLinkhollow" style="font-size:24px; margin-left:45%; text-align:center; margin-top:40px;" href="/Team/Create/">Create</a>
+</div>
+<script>
+    {
+        var crumbstr = @Html.Raw(Json.Encode(ViewBag.LayoutModel.languages));
+        var controller = getControllerName();
+    for (var i = 0; i < crumbstr.length; i++) {
+        if (crumbstr[i].Content !== "") {
+            crumbstr = crumbstr[i];
+            break;
+        }
+    }
+    //document.getElementById("PageHeadline").innerHTML = getValueFromDic(crumbstr.Content, getControllerName());
+    }
+
+    document.getElementById("CreateEmployee").innerHTML = getValueFromDic(crumbstr.Content, "Create");
+    var employees = @Html.Raw(Json.Encode(Model));
+    var empcons = [
+        "TitleAbbr",
+        "Job",
+        "Graduations",
+        "Salary",
+        "SGKPirim",
+        "StartingDate",
+        "LeaveDate",
+
+        "PhoneNum",
+        "PhoneNum2",
+        "Address",
+        "Address2",
+        "Email",
+        "Email2",
+
+        "Seri",
+        "Num",
+        "SSNum",
+        "Surname",
+        "Name",
+        "FathersName",
+        "MothersName",
+        "BirthPlace",
+        "TimeOfBirth",
+        "MaritalStatus",
+        "Religion",
+        "BloodType",
+        "City",
+        "District",
+        "NeighborhoodOrVillage",
+        "CiltNo",
+        "AileSiraNo",
+        "SiraNo",
+        "VerildigiYer",
+        "VerilisNedeni",
+        "KayitNo",
+        "VerilisTarihi"
+    ]
+
+    var buttonlinks = [
+        { inner: '<i class="fas fa-times"></i>', class: "buttonLink redbuttonLinkhollow", address: "#", hmessage: { message: getValueFromDic(crumbstr.Content, "Delete"), class: "buttonLink redbuttonLinkhollow" } },
+        { inner: '<i class="far fa-edit"></i>', class: "buttonLink bluebuttonLinkhollow", address: "#", hmessage: { message: getValueFromDic(crumbstr.Content, "Edit"), class: "buttonLink bluebuttonLinkhollow" } }
+    ]
+
+    var profiletisme = document.getElementById("profilethisme");
+
+    for (var i = 0; i < employees.length; i++) {
+
+        var divLink = document.createElement("a");
+        divLink.style.color = "black";
+        divLink.id = "divmeTeamlinkssc-" + i;
+        var hrme = document.createAttribute("href");
+        hrme.value = "/Team/Profileme/?id=" + employees[i].idme;
+        divLink.setAttributeNode(hrme);
+        profiletisme.appendChild(divLink);
+       
+
+        var mainempdiv = document.createElement("div");
+        mainempdiv.id = "mainempdiv-" + i;
+        mainempdiv.className = "generalIdinfoDiv";
+        divLink.appendChild(mainempdiv);
+
+        var mainhead = document.createElement("div");
+        mainhead.className = "generalIdinfoHead";
+        mainhead.innerHTML = employees[i].TitleAbbr + " " + employees[i].Name + " " + employees[i].Surname;
+        mainempdiv.appendChild(mainhead);
+
+        var stockimg = document.createElement("img");
+        stockimg.className = "imgCss";
+        var srcme = document.createAttribute("src");
+        srcme.value = employees[i].ImgUrl;
+        stockimg.setAttributeNode(srcme);
+        mainempdiv.appendChild(stockimg);
+
+        var firstexp = document.createElement("div");
+        firstexp.className = "align-top";
+        firstexp.style.width = "70%";
+        firstexp.style.display = "inline-block";
+        mainempdiv.appendChild(firstexp);
+
+        var generalsdiv = document.createElement("div");
+        generalsdiv.className = "generalIdinfoDiv";
+        firstexp.appendChild(generalsdiv);
+
+        var generalshead = document.createElement("div");
+        generalshead.className = "generalIdinfoHead";
+        generalshead.innerHTML = getValueFromDic(crumbstr.Content, "GeneralInfo");
+        generalsdiv.appendChild(generalshead);
+
+        for (var a = 0; a < 13; a++) {
+            var infmediv = document.createElement("div");
+            generalsdiv.appendChild(infmediv);
+
+            var infhead = document.createElement("div");
+            infhead.className = "infolabel";
+            if (empcons[a] !== "PhoneNum2" && empcons[a] !== "Address2") {
+                infhead.innerHTML = getValueFromDic(crumbstr.Content, empcons[a]);
+            }
+            infmediv.appendChild(infhead);
+
+            var incontemp = document.createElement("div");
+            incontemp.className = "infoTADiv";
+            incontemp.innerHTML = employees[i][empcons[a]];
+            if (a === 3 || a === 4) {
+                incontemp.innerHTML = incontemp.innerHTML + " " + employees[i]["Currency"];
+            }
+            infmediv.appendChild(incontemp);
+        }
+
+
+        var secondexp = document.createElement("div");
+        secondexp.className = "generalIdinfoDiv";
+        mainempdiv.appendChild(secondexp);
+        
+        var idssdiv = document.createElement("div");
+        idssdiv.className = "generalIdinfoHead";
+        idssdiv.innerHTML = getValueFromDic(crumbstr.Content, "IDInfo");
+        secondexp.appendChild(idssdiv);
+
+
+        for (var a = 13; a < 35; a++) {
+            var infmediv = document.createElement("div");
+            secondexp.appendChild(infmediv);
+
+            var infhead = document.createElement("div");
+            infhead.className = "infolabel";
+            infhead.innerHTML = getValueFromDic(crumbstr.Content, empcons[a]);
+            infmediv.appendChild(infhead);
+
+            var incontemp = document.createElement("div");
+            incontemp.className = "infoTADiv";
+            incontemp.innerHTML = employees[i][empcons[a]];
+            infmediv.appendChild(incontemp);
+        }
+
+        var hrmeme = document.createElement("hr");
+        hrmeme.style.marginBottom = "60px";
+        mainempdiv.parentNode.appendChild(hrmeme);
+
+        buttonlinks[0].onmousedown = "asyncDelete('/Team/Delete/',  { NameOrid: '" + employees[i].idme + "', LangAbr: '" + crumbstr.Abbreviation + "'} , 'divmeTeamlinkssc-" + i + "')";
+        buttonlinks[1].address = "/Team/Edit/?id=" + employees[i].idme;
+        putlinkss(mainempdiv, 4000 + (i * 4), buttonlinks, "right", "0px", "0px");
+    }
+</script>

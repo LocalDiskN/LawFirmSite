@@ -1,0 +1,86 @@
+﻿#footer {
+    position: relative;
+}
+
+#fmap {
+    position: absolute;
+    margin-top: 16px;
+    left: 51%;
+    top: 30px;
+    width: 48%;
+    z-index: 10;
+    height: 300px;
+}
+
+#FSitemap {
+    position: absolute;
+    width: 22%;
+    top: 50px;
+}
+
+#FContactDiv {
+    position: absolute;
+    left: 25%;
+    width: 22%;
+    top: 50px;
+    color: white;
+}
+
+#copyrightdiv {
+    background-color: rgb(150, 50, 50);
+    font: bold 14px arial;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.socialbuttons {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.twittercolor {
+    color: rgb(85, 172, 238);
+}
+
+    .twittercolor:hover {
+        color: rgb(118, 188, 241);
+    }
+
+.facebookcolor {
+    color: rgb(59, 89, 152);
+}
+
+    .facebookcolor:hover {
+        color: rgb(98, 122, 172);
+    }
+
+@media screen and (max-width: 1000px) {
+    #FSitemap {
+        height: 0px;
+        display: none;
+    }
+
+    #FContactDiv {
+        position: absolute;
+        left: 0px;
+        width: 48%;
+        top: 50px;
+        color: white;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #fmap {
+        height: 0px;
+        display: none;
+    }
+
+    #FContactDiv {
+        position: absolute;
+        left: 20px;
+        width: 100%;
+        top: 50px;
+        color: white;
+    }
+}
